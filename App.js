@@ -7,45 +7,85 @@
  */
 
 import React, {Component} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, FlatList, ActivityIndicator, Text, View,Linking ,Image} from 'react-native';
 import {createDrawerNavigator} from 'react-navigation';
-import { Card, ListItem, Button, CheckBox ,Icon ,Header } from 'react-native-elements'
+import { Card, Button, CheckBox ,Icon ,Header } from 'react-native-elements'
 
-
+console.disableYellowBox = true;
 
 export default class App extends Component {
-  render() {
-    return (
-      
 
-         
-      <View >
-      <Header
-  leftComponent={{ icon: 'menu', color: '#fff' }}
-  centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
-  rightComponent={{ icon: 'home', color: '#fff' }}
-/>
-<ScrollView >
-  <View style={styles.container}>
-          <Card
-            title='HELLO WORLD'
-            image={require('./assets/images/news.png')}>
-            <Text style={{marginBottom: 10}}>
-              The idea with React Native Elements is more about component structure than actual design.
-            </Text>
-            <Button
-              icon={{name: 'code'}}
-              backgroundColor='#03A9F4'
-              fontFamily='Lato'
-              buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-              title='VIEW NOW' />
-          </Card>
-          
+  constructor(props){
+    super(props);
+    this.state ={ isLoading: true}
+  }
+
+  componentDidMount(){
+    return fetch('http://testapi01a.tonproject.com/api/MobileNew')
+      .then((response) => response.json())
+      .then((responseJson) => {
+
+        this.setState({
+          isLoading: false,
+          dataSource: responseJson,
+        }, function(){
+
+        });
+
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+  }
+
+
+
+
+
+
+  render() {
+
+
+    if(this.state.isLoading){
+      return(
+        <View style={styles.container}>
+          <ActivityIndicator/>
         </View>
-          </ScrollView>
-      </View>
+      )
+    }
+
+    return(
    
+       
+      <View >
+       <Header
+          leftComponent={{ icon: 'menu', color: '#fff' }}
+          centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+          rightComponent={{ icon: 'home', color: '#fff' }}
+        />
+        <FlatList
+          data={this.state.dataSource}
+          renderItem={({item}) => 
+          <Card
+          style={styles.container}
+          title={item.title}
+          image={{uri: item.enclosure_url}}>
+          <Text style={{marginBottom: 10}}>
+           {item.description}
+          </Text>
+          <Button
+          onPress={ ()=>{ Linking.openURL(item.link)}}
+            icon={{name: 'code'}}
+            backgroundColor='#03A9F4'
+            fontFamily='Lato'
+            buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+            title='อ่านต่อ...' />
+        </Card>}
+          keyExtractor={(item, index) => index}
+        />
+      </View>
     );
+
   }
 }
 
