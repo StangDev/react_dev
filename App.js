@@ -7,24 +7,44 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {createDrawerNavigator} from 'react-navigation';
+import { Card, ListItem, Button, CheckBox ,Icon ,Header } from 'react-native-elements'
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
-type Props = {};
-export default class App extends Component<Props> {
+
+export default class App extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+      
+
+         
+      <View >
+      <Header
+  leftComponent={{ icon: 'menu', color: '#fff' }}
+  centerComponent={{ text: 'MY TITLE', style: { color: '#fff' } }}
+  rightComponent={{ icon: 'home', color: '#fff' }}
+/>
+<ScrollView >
+  <View style={styles.container}>
+          <Card
+            title='HELLO WORLD'
+            image={require('./assets/images/news.png')}>
+            <Text style={{marginBottom: 10}}>
+              The idea with React Native Elements is more about component structure than actual design.
+            </Text>
+            <Button
+              icon={{name: 'code'}}
+              backgroundColor='#03A9F4'
+              fontFamily='Lato'
+              buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+              title='VIEW NOW' />
+          </Card>
+          
+        </View>
+          </ScrollView>
       </View>
+   
     );
   }
 }
