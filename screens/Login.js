@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Button,StyleSheet } from 'react-native';
-import { DrawerActions } from 'react-navigation';
+z
 export class Login extends Component {
     
 
