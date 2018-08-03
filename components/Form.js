@@ -14,7 +14,7 @@ Form.Label = styled.Text`
 `;
 
 Form.Value = styled.Text.attrs({ numberOfLines: 10, ellipsizeMode: 'tail' })`
-  font-size: 14px;
+  font-size: 10px;
   background-color: transparent;
   margin-bottom: 20px;
 `;

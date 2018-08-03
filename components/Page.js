@@ -7,5 +7,5 @@ export default styled.ImageBackground.attrs({
 })`
   flex: 1;
   background-color: white;
-  padding: 40px 10px 10px 10px;
+  padding: 10px 10px 10px 10px;
 `;
